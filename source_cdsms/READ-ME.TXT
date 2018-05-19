@@ -1,0 +1,8 @@
+"HOW-TO-RUN-EXAMPLE.TXT": Instructions of how to run this tool.
+"indexing_wraper.pl": Script for the 1st step of the process.
+"indexing_core": The core of the 1st step.
+"indexing_core_cpp_source/": Includes the cpp source code for the core of the 1st step.
+"ppmi.pl": Script for the 2nd step of the process.
+"example_data/": Data that can be used as example.
+"dsm/": Automatically created directory for storing the index and model (i.e., the output).
+"READ-ME.TXT": This file.

@@ -1,0 +1,53 @@
+STEP 1
+------
+FUNCTIONALITY: CREATION OF CORPUS INDEX GIVEN A CONTEXT WINDOW,
+WHICH IS BASED ON THE CO-OCCURRENCE FREQUENCIES OF WORDS
+perl indexing_wraper.pl 1 example_data/sample.voc example_data/sample.corpus
+Input arguments:
+1st: Context window size (in this example: 1).
+2nd: Path to vocabulary file. Each entry determines the rows and the columns of the
+     word-feature matrix (in this example: example_data/sample.voc).
+3rd: Path to corpus (in this example: example_data/sample.corpus). 
+Output:
+The output is stored in a directory called "dsm" that is automatically created.
+Two files are created.
+For this example, the following files are created:
+"index.ws1.freq": The corpus frequency for each entry of the vocabulary.
+                  One line per vocabulary entry.
+"index.ws1.index": The index in sparse format.
+                   One line per vocabulary entry.
+Brief explanation of the index:
+The second line is: 1,86 2,5749 3,7 4,2 5,6 6,243 7,20.
+Let's see the meaning of the '3,7' field:
+The second word of the vocabulary (i.e., 'and'), has as contextual feature
+-according to the given context window size-
+the third word of vocabulary (i.e., 'money') with frequency equal to 7.
+
+STEP 2
+------
+FUNCTIONALITY: CREATION OF A DISTRIBUTIONAL SEMANTIC MODEL
+IN THE FORM OF A WORD-FEATURE MATRIX (AKA VECTOR SPACE MODEL)
+USING THE INDEX CREATED IN THE PREVIOUS STEP.
+THE CONTEXTUAL FEATURES ARE WEIGHTED ACCORDING TO
+POSITIVE POINTWISE MUTUAL INFORMATION.
+perl ppmi.pl 1 237041 7 example_data/sample.cols
+Input arguments:
+1st: Context window size (in this example: 1).
+2nd: The number of (NOT unique) tokens included in the corpus (in this example: 237041). 
+3rd: The number of entries of the vocabulary (in this example: 7).
+4th: Path to file that includes the indices of the words that constitute the columns of the word-features matrix.
+     These words should be included in the vocabulary. Their index is identical to the vocabulary index.
+     The underlying idea here is that in the word-feature matrix you may want to have less columns than rows.
+     (in this examples the rows are identical to the columns).
+Output:
+The output is stored in the "dsm" directory.
+One file is created.
+For this example, the following file is created:
+"index.ws1.ppmi": One line per vocabulary entry. 
+Brief explanation of the index:
+The second line is: 2:3.719 3:1.040.
+Let's see the meaning of the '3:1.040' field:
+The second word of the vocabulary (i.e., 'and'), has as contextual feature
+-according to the given context window size-
+the third word of vocabulary (i.e., 'money'), while 'and' and 'money' are associated
+by a posritive score of pointwise mutual information that equals to 1.040.
