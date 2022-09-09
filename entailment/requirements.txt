@@ -1,5 +1,5 @@
 ekphrasis
-numpy==1.13.1
+numpy==1.22.0
 tqdm==4.19.4
 visdom==0.1.5
 matplotlib==2.0.2
